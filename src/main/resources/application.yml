@@ -1,0 +1,49 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+  h2:
+    console.enabled: true
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    spring.jpa.hibernate.ddl-auto: create
+
+authentication:
+  passwordPattern: ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$
+  emailPattern: ^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$
+
+jwt:
+  accessExpiration: 15
+  refreshExpiration: 12
+  algorithm: HmacSHA256
+
+securlpattern:
+  urls:
+    - /api/v1/quotes/random
+    - /api/v1/auth/register
+    - /api/v1/auth/login
+    - /api/v1/
+    - /api/v1/quotes/top/
+    - /api/v1/quotes/worse/
+    - /swagger-ui/*
+    - /v3/api-docs/**
+logoutUrl: /api/v1/auth/logout
+logoutSuccessUrl: /
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: '/v3/api-docs'
+  swagger-ui:
+    path: '/swagger-ui.html'
+    doc-expansion: none
+    disable-swagger-default-url: true
+
+limit:
+  lastVoteLimit: 5
+  randomQuoteLimit: 1
