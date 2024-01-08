@@ -13,7 +13,7 @@ public interface QuoteMapper {
     @Mapping(target = "id", ignore = true)
     Quote mapToQuote(QuoteDto quoteDto);
 
-    QuoteDto mapToQuote(Quote quote);
+    QuoteDto mapToQuoteDto(Quote quote);
 
 
     void updateQuoteFromDto(QuoteDto quoteDto, @MappingTarget Quote quote);

@@ -28,8 +28,10 @@ public class AuthServiceImpl implements AuthService {
     private static final String WRONG_PASSWORD_FORMAT_MESSAGE = ErrorMessages.WRONG_PASSWORD_MESSAGE.label;
     private static final String WRONG_AUTHENTICATION_MESSAGE = ErrorMessages.WRONG_AUTHENTICATION_MESSAGE.label;
     private static final String WRONG_REFRESH_TOKEN_MESSAGE = ErrorMessages.WRONG_TOKEN_MESSAGE.label;
+    private static final String WRONG_LOGIN_MESSAGE = ErrorMessages.WRONG_LOGIN_MESSAGE.label;
     private String emailRegex = "^(.+)@(\\S+)$";
     private String passwordPatternRegex = "\\S{8,20}";
+    private String loginRegex = "^[a-zA-Z0-9._-]{3,15}$";
 
     @Override
     public boolean register(User user) {
@@ -76,11 +78,15 @@ public class AuthServiceImpl implements AuthService {
         emailRegex = avConfig.getEmailPattern() == null ? emailRegex : avConfig.getEmailPattern();
         passwordPatternRegex = avConfig.getPasswordPattern() == null ?
                 passwordPatternRegex : avConfig.getPasswordPattern();
-        if (!user.getEmail().matches(emailRegex)) {
-            throw new InvalidDataException(WRONG_EMAIL_FORMAT_MESSAGE);
-        }
+//        if (!user.getEmail().matches(emailRegex)) {
+//            throw new InvalidDataException(WRONG_EMAIL_FORMAT_MESSAGE);
+//        }
         if (!user.getPassword().matches(passwordPatternRegex)) {
             throw new InvalidDataException(WRONG_PASSWORD_FORMAT_MESSAGE);
+        }
+        loginRegex = avConfig.getLoginPattern() == null ? loginRegex : avConfig.getLoginPattern();
+        if (!user.getLogin().matches(loginRegex)) {
+            throw new InvalidDataException(WRONG_LOGIN_MESSAGE);
         }
         return user;
     }

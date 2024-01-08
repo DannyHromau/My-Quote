@@ -25,7 +25,7 @@ public class AuthFacadeImpl implements AuthFacade {
 
     @Override
     public boolean register(AuthDto registerDto) {
-        User user = new User(registerDto.getLogin(), registerDto.getPassword());
+        User user = new User(registerDto.getLogin(), registerDto.getPassword(), registerDto.getEmail());
         return authService.register(user);
     }
 

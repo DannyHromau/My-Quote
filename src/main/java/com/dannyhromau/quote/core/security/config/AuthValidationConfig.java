@@ -10,4 +10,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AuthValidationConfig {
     private String passwordPattern;
     private String emailPattern;
+    private String loginPattern;
 }

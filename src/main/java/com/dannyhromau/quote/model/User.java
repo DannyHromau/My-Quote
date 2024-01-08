@@ -26,8 +26,13 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String login, String password, String email) {
+        this.login = login;
+        this.password = password;
         this.email = email;
+    }
+    public User(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 }

@@ -25,4 +25,7 @@ public interface VoteService extends BaseService<Vote> {
     @Override
     Vote update(Vote entity);
     Vote validateId(UUID id);
+
+    int getTopVotesValueByQuoteId(UUID quoteId);
+    int getFlopVotesValueByQuoteId(UUID quoteId);
 }

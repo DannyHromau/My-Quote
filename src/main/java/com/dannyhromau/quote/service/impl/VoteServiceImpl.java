@@ -5,6 +5,7 @@ import com.dannyhromau.quote.core.util.ErrorMessages;
 import com.dannyhromau.quote.exception.EntityNotfoundException;
 import com.dannyhromau.quote.exception.InvalidDataException;
 import com.dannyhromau.quote.model.Vote;
+import com.dannyhromau.quote.model.VoteValue;
 import com.dannyhromau.quote.repository.VoteRepository;
 import com.dannyhromau.quote.service.VoteService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,15 @@ public class VoteServiceImpl implements VoteService {
     private static final String DUPLICATE_USER_MESSAGE = ErrorMessages.INCORRECT_DATA_MESSAGE.label;
 
 
+    @Override
+    public int getFlopVotesValueByQuoteId(UUID quoteId) {
+        return voteRepository.findVotesCountByQuoteIdAndVoteValue(quoteId, VoteValue.MINUS);
+    }
+
+    @Override
+    public int getTopVotesValueByQuoteId(UUID quoteId) {
+        return voteRepository.findVotesCountByQuoteIdAndVoteValue(quoteId, VoteValue.PLUS);
+    }
 
     public List<Vote> getLastVotes(int limit){
         limit = limit < 0 ? limitConfig.getLastVoteLimit() : limit;

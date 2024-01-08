@@ -8,18 +8,20 @@ import com.dannyhromau.quote.exception.EntityNotfoundException;
 import com.dannyhromau.quote.exception.ForbiddenException;
 import com.dannyhromau.quote.exception.InvalidDataException;
 import com.dannyhromau.quote.model.Quote;
+import com.dannyhromau.quote.model.Vote;
+import com.dannyhromau.quote.model.VoteValue;
 import com.dannyhromau.quote.repository.QuoteRepository;
 import com.dannyhromau.quote.service.QuoteService;
 import com.dannyhromau.quote.service.UserService;
+import com.dannyhromau.quote.service.VoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,6 +30,7 @@ public class QuoteServiceImpl implements QuoteService {
 
     private final QuoteRepository quoteRepository;
     private final UserService userService;
+    private final VoteService voteService;
     private final TokenUtil tokenUtil;
     private final LimitConfig limitConfig;
     private static final String ENTITY_NOT_FOUND_MESSAGE = ErrorMessages.ENTITY_NOT_FOUND_MESSAGE.label;
@@ -36,18 +39,37 @@ public class QuoteServiceImpl implements QuoteService {
     private static final String FORBIDDEN_STATUS_MESSAGE = ErrorMessages.FORBIDDEN_STATUS_MESSAGE.label;
 
 
-
     public Quote getRandomQuote(int limit) {
         limit = limit < 0 ? limitConfig.getRandomQuoteLimit() : limit;
         return quoteRepository.findRandomQuote(limit);
     }
 
     public List<Quote> getTopQuotes(Pageable pageable) {
-        return quoteRepository.findByPositiveCountDesc(pageable);
+        Map<Quote, Integer> topMap = new HashMap<>();
+        List<Quote> topQuotes = quoteRepository.findTopQuotes(pageable.getPageSize());
+        for (Quote quote : topQuotes) {
+            int topCount = voteService.getTopVotesValueByQuoteId(quote.getId());
+            topMap.put(quote, topCount);
+        }
+        return topMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     public List<Quote> getFlopQuotes(Pageable pageable) {
-        return quoteRepository.findByNegativeCountDesc(pageable);
+        Map<Quote, Integer> flopMap = new HashMap<>();
+        List<Quote> flopQuotes = quoteRepository.findFlopQuotes(pageable.getPageSize());
+        for (Quote quote : flopQuotes) {
+            int flopCount = voteService.getFlopVotesValueByQuoteId(quote.getId());
+            flopMap.put(quote, flopCount);
+        }
+        return flopMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     @Override

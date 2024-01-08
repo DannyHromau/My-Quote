@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>gcom.dannyhromau</groupId>
-    <artifactId>My-Quote</artifactId>
+    <artifactId>my-quote</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.security.oauth2.jose.version>5.8.0</spring.security.oauth2.jose.version>
+        <spring.security.oauth2.jose.version>6.0.2</spring.security.oauth2.jose.version>
         <spring.security.oauth2.server.version>3.1.0</spring.security.oauth2.server.version>
         <spring.security.jwt.version>1.1.1.RELEASE</spring.security.jwt.version>
         <mapstruct.processor.version>1.4.2.Final</mapstruct.processor.version>
@@ -29,9 +29,10 @@
         <io.swagger.annotations.version>2.1.12</io.swagger.annotations.version>
         <springdoc.openapi.ui.version>1.6.3</springdoc.openapi.ui.version>
         <io.rest-assured.version>5.3.0</io.rest-assured.version>
-        <org.junit.jupiter.version>5.9.0</org.junit.jupiter.version>
-        <org.mockito.junit.jupiter.version>4.10.0</org.mockito.junit.jupiter.version>
+        <org.junit.jupiter.version>5.9.2</org.junit.jupiter.version>
+        <org.mockito.junit.jupiter.version>5.2.0</org.mockito.junit.jupiter.version>
     </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -92,7 +93,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>${projectlombok.lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -141,14 +142,44 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>${jakarta.xml.bind.version}</version>
         </dependency>
         <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${org.junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${org.mockito.junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${io.swagger.annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.openapi.ui.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -23,6 +23,7 @@ public class Vote extends BaseEntity {
     @JoinColumn(name = "quote_id", insertable = false, updatable = false)
     private Quote quote;
     @Enumerated(EnumType.STRING)
+    @Column(name = "vote_value", nullable = false)
     private VoteValue voteValue;
 
 }

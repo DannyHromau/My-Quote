@@ -5,6 +5,7 @@ public enum ErrorMessages {
     ENTITY_NOT_FOUND_MESSAGE("Entity with id : %s not exists"),
     WRONG_PASSWORD_MESSAGE("Wrong password format"),
     WRONG_EMAIL_MESSAGE("Wrong email format"),
+    WRONG_LOGIN_MESSAGE("Wrong login format"),
     WRONG_AUTHENTICATION_MESSAGE("Cannot authorize : check input data or unblock the user"),
     WRONG_TOKEN_MESSAGE("Wrong token"),
     FORBIDDEN_STATUS_MESSAGE("Permission denied : no such authorities"),
